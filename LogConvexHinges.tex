@@ -1,0 +1,114 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+
+\input{include.tex}
+
+\newcommand{\realfunction}[2] {{#1: #2 \rightarrow \mathbb{R}}}
+\newcommand{\cinfty} {\mathcal{C}^{\infty}}
+\newcommand{\analytic} {\mathcal{C}^{\omega}}
+
+\title{Integral Representation of Increasing Log-Convex-Shaped Functions via Exponential Softplus}
+\author{Juan Casanova}
+
+\begin{document}
+
+\maketitle
+
+This is the abstract.
+
+\tableofcontents
+
+Maybe an intro here about why this might be useful and so on.
+
+\section{Background: Log-convexity}
+
+The definitions and results in this section are classical and are introduced here to provide relevant context to readers.
+
+\begin{definition}[Log-convex function]
+A real function $\realfunction{f}{[a,b]}$ is log-convex if $\log(f)$ is convex. Formally, log-convexity can be characterized by any of the following two equivalent constraints, for all $x_1,x_2 \in [a,b]$ and all $t \in [0,1]$.
+\begin{equation}
+\log(f(t x_1+(1-t) x_2)) \leq t \log(f(x_1)) + (1-t) \log(f(x_2))
+\end{equation}
+\begin{equation}
+f(t x_1 + (1-t) x_2) \leq f(x_1)^{t} f(x_2)^{1-t}
+\end{equation}
+\end{definition}
+
+Typical examples of log-convex functions include exponential polynomials such as $e^x$ or $e^{x^2}$.\\
+
+INCLUDE CHART OF EXPONENTIALS HERE
+
+In twice differentiable functions, convexity and log-convexity can be characterized by constraints on the derivatives.
+
+\begin{lemma}
+Let $\realfunction{f}{[a,b]}$ be a twice differentiable function. Then, $f$ is convex if and only if $\secondderiv{f} \geq 0$ in all of $[a,b]$.
+\end{lemma}
+
+\begin{lemma}
+Let $\realfunction{f}{[a,b]}$ be a twice differentiable function. Then, $f$ is log-convex if and only if $\secondderiv{f}f \geq (\firstderiv{f})^2$ in all of $[a,b]$.
+\end{lemma}
+
+\begin{proof}
+$f$ is log-convex if and only if $\log f$ is convex if and only if $\secondderiv{(\log f)} \geq 0$.
+$$\firstderiv{(\log f)} = \frac{\firstderiv{f}}{f}$$
+$$\secondderiv{(\log f)} = \frac{\secondderiv{f}f - \firstderiv{f}\firstderiv{f}}{f^2} = \frac{\secondderiv{f}f - (\firstderiv{f})^2}{f^2}$$
+
+But since $f^2 \geq 0$ in $[a,b]$, we have that $\secondderiv{(\log f)} \geq 0$ if and only if:
+$$\secondderiv{f}f - (\firstderiv{f})^2 \geq 0$$ if and only if
+$$\secondderiv{f}f \geq (\firstderiv{f})^2$$
+\end{proof}
+
+An important function to understand the structure of log-convex functions is the log-sum-exp function:
+
+\begin{definition}{log-sum-exp}
+\begin{equation}
+LSE(x_1,...,x_n) = \log(e^{x_1}+...+e^{x_n})
+\end{equation}
+\end{definition}
+
+\begin{lemma}[Convexity of log-sum-exp]
+log-sum-exp is a convex function.
+\end{lemma}
+
+A proof and more details on the log-sum-exp function can be found in textbooks on convex functions, such as \cite{2004_boyd_convex_optimization}.\\
+
+Log-convex functions form a convex cone. That is, they are closed under multiplication by nonnegative scalars and addition:
+
+\begin{lemma}
+Let $f, g$ be log-convex functions, and let $\alpha, \beta \geq 0$ be nonnegative scalars. Then $\alpha f + \beta g$ is log-convex.
+\end{lemma}
+
+\begin{proof}
+Multiplication by nonnegative scalars can be shown arithmetically from the definition of log-convexity:
+$$(\alpha f)(t x_1 + (1-t) x_2) = \alpha f(t x_1 + (1-t) x_2)$$
+but since $f$ is log-convex it follows that
+\begin{equation*}
+\begin{array}{l}
+\alpha f(t x_1 + (1-t) x_2) \leq \alpha f(x_1)^t f(x_2)^{1-t} = (\alpha^t \cdot \alpha^{1-t}) f(x_1)^t f(x_2)^{1-t} =\\
+= (\alpha f(x_1))^t (\alpha f(x_2))^{1-t} = ((\alpha f)(x_1))^t ((\alpha f)(x_2))^{1-t}.
+\end{array}
+\end{equation*}
+
+Addition can be shown from the convexity of log-sum-exp. Let $f,g$ be log-convex functions. Then $\log f$ and $\log g$ are convex. Consider $\log (f+g) = \log(e^{\log f} + e^{\log g}) = LSE(\log f, \log g)$. Composition of convex functions is convex, and therefore $\log (f+g)$ is convex, and thus $f+g$ is log-convex.
+\end{proof}
+
+\section{Log-convex-shaped functions}
+
+Log-convexity is not a shape constraint, in the sense that it is not preserved by vertical translation.
+
+\section{Integral representation of increasing convex functions}
+
+Traditional ramp decomposition.
+
+\section{Integral representation of increasing log-convex-shaped functions}
+
+Push the decomposition properly to log-convex-shaped functions.
+
+\dobibliography
+
+\end{document}
